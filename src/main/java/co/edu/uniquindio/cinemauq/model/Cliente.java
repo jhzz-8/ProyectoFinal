@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/** Cliente del cine: tiene una tarjeta virtual, una cuenta de puntos, compras y notificaciones. */
 public class Cliente extends Usuario {
 
     private String telefono;

@@ -10,11 +10,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * Compra de un cliente para una función: entradas + confitería.
- * Se arma con el patrón Builder (CompraBuilder) y su ciclo de vida lo controla el patrón
- * State ({@link EstadoCompra}): Pendiente → Pagada → Cancelada.
- */
 public class Compra {
 
     private final String id;
@@ -30,10 +25,6 @@ public class Compra {
     private Reembolso reembolso;
     private int puntosGanados;
 
-    /**
-     * @param subtotal  suma de entradas y confitería antes de promociones.
-     * @param descuento total descontado por promociones (0 si no hay).
-     */
     public Compra(String id, Cliente cliente, Funcion funcion, List<Entrada> entradas,
                   List<LineaConfiteria> lineas, double subtotal, double descuento,
                   List<String> promocionesAplicadas, LocalDateTime fecha) {
@@ -48,8 +39,6 @@ public class Compra {
         this.fecha = fecha;
     }
 
-    // ---------------- Operaciones delegadas al estado (patrón State) ----------------
-
     public void pagar() throws CinemaUQException {
         estado.pagar(this);
     }
@@ -58,17 +47,12 @@ public class Compra {
         estado.cancelar(this, porcentaje, motivo, fechaCancelacion);
     }
 
-    /** Uso exclusivo de las clases EstadoCompra. */
     public void cambiarEstado(EstadoCompra nuevoEstado) { this.estado = nuevoEstado; }
 
-    /** Uso exclusivo de las clases EstadoCompra. */
     public void registrarReembolso(Reembolso reembolso) { this.reembolso = reembolso; }
-
-    // ---------------- Consultas ----------------
 
     public double getTotal() { return Math.max(0, subtotal - descuento); }
 
-    /** La tarjeta usada es siempre la del cliente; ahí vuelve el reembolso. */
     public TarjetaVirtual getTarjeta() { return cliente.getTarjeta(); }
 
     public boolean tieneReembolso() { return reembolso != null; }

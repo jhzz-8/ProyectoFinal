@@ -1,11 +1,5 @@
 package co.edu.uniquindio.cinemauq.model;
 
-/**
- * Entrada a una función para un asiento. Es abstracta: cada tipo define su recargo sobre el
- * precio base de la función (polimorfismo). Las subclases solo cambian el recargo y el nombre,
- * así que cualquier Entrada se puede usar donde se espera otra (LSP).
- * Se crean con el patrón Factory Method (EntradaFactory).
- */
 public abstract class Entrada implements Cobrable {
 
     private final String id;
@@ -18,10 +12,8 @@ public abstract class Entrada implements Cobrable {
         this.asiento = asiento;
     }
 
-    /** Valor adicional que se suma al precio base de la función. */
     public abstract double getRecargo();
 
-    /** Nombre del tipo de entrada: "General", "Preferencial", "3D". */
     public abstract String getTipo();
 
     @Override
